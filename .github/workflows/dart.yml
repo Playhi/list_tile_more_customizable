@@ -1,0 +1,21 @@
+name: Auto publish to pub.dev
+
+on:
+  push:
+    branches:
+    - release/*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: pub get
+    - name: Run publish
+      run: pub publish
