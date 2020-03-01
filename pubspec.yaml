@@ -1,6 +1,6 @@
 name: list_tile_more_customizable
-description: A ListTile with more customizable details.
-version: 0.0.1
+description: A ListTile with more customizable details, which provides more customizable functions, with these functions, you can set the horizontalTitleGap and get the TapDownDetails when onTap occurred.
+version: 0.1.0
 homepage: https://github.com/Playhi/list_tile_more_customizable
 
 environment:

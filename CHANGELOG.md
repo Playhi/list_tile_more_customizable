@@ -1,3 +1,8 @@
+## [0.1.0] - 2020-03-01
+
+* Support flutter 1.13.8-.
+
+
 ## [0.0.1] - 2020-03-01
 
 * This project is a modified version of Flutter ListTile, 
