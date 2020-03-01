@@ -1,5 +1,5 @@
 name: list_tile_more_customizable
-description: A ListTile with more customizable details, which provides more customizable functions.
+description: A ListTile with more customizable details, which provides more customizable functions, based on the traditional flutter ListTile.
 version: 0.1.0
 homepage: https://github.com/Playhi/list_tile_more_customizable
 
