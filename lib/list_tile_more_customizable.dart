@@ -576,7 +576,8 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
       ..isDense = isDense
       ..textDirection = textDirection
       ..titleBaselineType = titleBaselineType
-      ..subtitleBaselineType = subtitleBaselineType;
+      ..subtitleBaselineType = subtitleBaselineType
+      ..horizontalTitleGap = horizontalTitleGap;
   }
 }
 
@@ -837,7 +838,15 @@ class _RenderListTileMoreCustomizable extends RenderBox {
     markNeedsLayout();
   }
 
+  double get horizontalTitleGap => _horizontalTitleGap;
   double _horizontalTitleGap;
+
+  set horizontalTitleGap(double value) {
+    assert(value != null);
+    if (_horizontalTitleGap == value) return;
+    _horizontalTitleGap = value;
+    markNeedsLayout();
+  }
 
   @override
   void attach(PipelineOwner owner) {
