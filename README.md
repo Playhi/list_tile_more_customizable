@@ -8,7 +8,7 @@ This project is a modified version of Flutter ListTile,
 and provides more customizable functions, 
 with these functions, 
 you can set the horizontalTitleGap 
-and get the TapDownDetails when onTap occurred.
+and get the TapDownDetails when onTap or onLongPress occurred.
 
 ## Usage
 
@@ -18,5 +18,6 @@ ListTileMoreCustomizable(
     trailing: Icon(Icons.people),
     horizontalTitleGap: 0.0,
     onTap: (details){},
+    onLongPress: (details){},
 );
 ```

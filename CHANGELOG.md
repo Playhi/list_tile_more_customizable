@@ -1,3 +1,9 @@
+## [1.0.0] - 2020-03-01
+
+* Add TapDownDetails to onLongPress.
+* Fixed null problem when onTap/onLongPress not used.
+
+
 ## [0.1.0] - 2020-03-01
 
 * Support flutter 1.13.8-.

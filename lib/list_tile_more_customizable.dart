@@ -278,14 +278,14 @@ class ListTileMoreCustomizable extends StatefulWidget {
   final bool enabled;
 
   /// Called when the user taps this list tile.
-  ///
+  /// The details information is recorded when InkWell's onTapDown occurred.
   /// Inoperative if [enabled] is false.
   final GestureTapDownCallback onTap;
 
   /// Called when the user long-presses on this list tile.
-  ///
+  /// The details information is recorded when InkWell's onTapDown occurred.
   /// Inoperative if [enabled] is false.
-  final GestureLongPressCallback onLongPress;
+  final GestureTapDownCallback onLongPress;
 
   /// If this tile is also [enabled] then icons and text are rendered with the same color.
   ///
@@ -472,8 +472,9 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
             _defaultContentPadding;
 
     return InkWell(
-      onTap: widget.enabled ? toOnTap : null,
-      onLongPress: widget.enabled ? widget.onLongPress : null,
+      onTap: widget.enabled && widget.onTap != null ? toOnTap : null,
+      onLongPress:
+          widget.enabled && widget.onLongPress != null ? toOnLongPress : null,
       onTapDown: widget.enabled ? recordTapDownDetails : null,
       canRequestFocus: widget.enabled,
       child: Semantics(
@@ -502,6 +503,10 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
 
   toOnTap() {
     widget.onTap(tapDownDetails);
+  }
+
+  toOnLongPress() {
+    widget.onLongPress(tapDownDetails);
   }
 
   recordTapDownDetails(TapDownDetails d) {

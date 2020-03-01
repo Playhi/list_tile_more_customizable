@@ -73,6 +73,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 );
               },
+              onLongPress: (details){
+                showMenu(
+                  context: context,
+                  position: RelativeRect.fromLTRB(
+                    details.globalPosition.dx,
+                    details.globalPosition.dy,
+                    details.globalPosition.dx,
+                    details.globalPosition.dy,
+                  ),
+                  items: <PopupMenuEntry<int>>[
+                    PopupMenuItem(child: Text("onLongPressed - 1!"))
+                  ],
+                );
+              },
             ),
             Divider(),
             ListTileMoreCustomizable(
@@ -80,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text("Title - 2"),
               subtitle: Text("Subtitle - 2"),
               trailing: Icon(Icons.palette),
-              onTap: (details) {
+              onLongPress: (details) {
                 showMenu(
                   context: context,
                   position: RelativeRect.fromLTRB(
