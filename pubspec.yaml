@@ -1,8 +1,7 @@
 name: list_tile_more_customizable
 description: A ListTile with more customizable details.
 version: 0.0.1
-author:
-homepage:
+homepage: https://github.com/Playhi/list_tile_more_customizable
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
