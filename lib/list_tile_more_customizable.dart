@@ -1,49 +1,55 @@
 library list_tile_more_customizable;
+
 // Copyright 2014 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE_RAW_FLUTTER file.
+
+// This file has been modified based on The Flutter Authors' version,
+// which can be found in ****,
+// which has been used as the initial version of this file.
+
+// Copyright 2020 The List Tile More Customizable Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
-import 'colors.dart';
-import 'constants.dart';
-import 'debug.dart';
-import 'divider.dart';
-import 'ink_well.dart';
-import 'theme.dart';
+// The horizontal gap between the titles and the leading/trailing widgets
+const double _defaultHorizontalTitleGap = 16.0;
 
-/// Defines the title font used for [ListTile] descendants of a [ListTileTheme].
+/// Defines the title font used for [ListTileMoreCustomizable] descendants of a [ListTileMoreCustomizableTheme].
 ///
 /// List tiles that appear in a [Drawer] use the theme's [TextTheme.bodyText1]
 /// text style, which is a little smaller than the theme's [TextTheme.subtitle1]
 /// text style, which is used by default.
-enum ListTileStyle {
-  /// Use a title font that's appropriate for a [ListTile] in a list.
+enum ListTileMoreCustomizableStyle {
+  /// Use a title font that's appropriate for a [ListTileMoreCustomizable] in a list.
   list,
 
-  /// Use a title font that's appropriate for a [ListTile] that appears in a [Drawer].
+  /// Use a title font that's appropriate for a [ListTileMoreCustomizable] that appears in a [Drawer].
   drawer,
 }
 
-/// An inherited widget that defines color and style parameters for [ListTile]s
+/// An inherited widget that defines color and style parameters for [ListTileMoreCustomizable]s
 /// in this widget's subtree.
 ///
-/// Values specified here are used for [ListTile] properties that are not given
+/// Values specified here are used for [ListTileMoreCustomizable] properties that are not given
 /// an explicit non-null value.
 ///
 /// The [Drawer] widget specifies a tile theme for its children which sets
-/// [style] to [ListTileStyle.drawer].
-class ListTileTheme extends InheritedTheme {
+/// [style] to [ListTileMoreCustomizableStyle.drawer].
+class ListTileMoreCustomizableTheme extends InheritedTheme {
   /// Creates a list tile theme that controls the color and style parameters for
-  /// [ListTile]s.
-  const ListTileTheme({
+  /// [ListTileMoreCustomizable]s.
+  const ListTileMoreCustomizableTheme({
     Key key,
     this.dense = false,
-    this.style = ListTileStyle.list,
+    this.style = ListTileMoreCustomizableStyle.list,
     this.selectedColor,
     this.iconColor,
     this.textColor,
@@ -52,13 +58,13 @@ class ListTileTheme extends InheritedTheme {
   }) : super(key: key, child: child);
 
   /// Creates a list tile theme that controls the color and style parameters for
-  /// [ListTile]s, and merges in the current list tile theme, if any.
+  /// [ListTileMoreCustomizable]s, and merges in the current list tile theme, if any.
   ///
   /// The [child] argument must not be null.
   static Widget merge({
     Key key,
     bool dense,
-    ListTileStyle style,
+    ListTileMoreCustomizableStyle style,
     Color selectedColor,
     Color iconColor,
     Color textColor,
@@ -68,8 +74,9 @@ class ListTileTheme extends InheritedTheme {
     assert(child != null);
     return Builder(
       builder: (BuildContext context) {
-        final ListTileTheme parent = ListTileTheme.of(context);
-        return ListTileTheme(
+        final ListTileMoreCustomizableTheme parent =
+            ListTileMoreCustomizableTheme.of(context);
+        return ListTileMoreCustomizableTheme(
           key: key,
           dense: dense ?? parent.dense,
           style: style ?? parent.style,
@@ -83,24 +90,24 @@ class ListTileTheme extends InheritedTheme {
     );
   }
 
-  /// If true then [ListTile]s will have the vertically dense layout.
+  /// If true then [ListTileMoreCustomizable]s will have the vertically dense layout.
   final bool dense;
 
-  /// If specified, [style] defines the font used for [ListTile] titles.
-  final ListTileStyle style;
+  /// If specified, [style] defines the font used for [ListTileMoreCustomizable] titles.
+  final ListTileMoreCustomizableStyle style;
 
-  /// If specified, the color used for icons and text when a [ListTile] is selected.
+  /// If specified, the color used for icons and text when a [ListTileMoreCustomizable] is selected.
   final Color selectedColor;
 
-  /// If specified, the icon color used for enabled [ListTile]s that are not selected.
+  /// If specified, the icon color used for enabled [ListTileMoreCustomizable]s that are not selected.
   final Color iconColor;
 
-  /// If specified, the text color used for enabled [ListTile]s that are not selected.
+  /// If specified, the text color used for enabled [ListTileMoreCustomizable]s that are not selected.
   final Color textColor;
 
   /// The tile's internal padding.
   ///
-  /// Insets a [ListTile]'s contents: its [leading], [title], [subtitle],
+  /// Insets a [ListTileMoreCustomizable]'s contents: its [leading], [title], [subtitle],
   /// and [trailing] widgets.
   final EdgeInsetsGeometry contentPadding;
 
@@ -111,44 +118,48 @@ class ListTileTheme extends InheritedTheme {
   /// ```dart
   /// ListTileTheme theme = ListTileTheme.of(context);
   /// ```
-  static ListTileTheme of(BuildContext context) {
-    final ListTileTheme result = context.dependOnInheritedWidgetOfExactType<ListTileTheme>();
-    return result ?? const ListTileTheme();
+  static ListTileMoreCustomizableTheme of(BuildContext context) {
+    final ListTileMoreCustomizableTheme result = context
+        .dependOnInheritedWidgetOfExactType<ListTileMoreCustomizableTheme>();
+    return result ?? const ListTileMoreCustomizableTheme();
   }
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    final ListTileTheme ancestorTheme = context.findAncestorWidgetOfExactType<ListTileTheme>();
-    return identical(this, ancestorTheme) ? child : ListTileTheme(
-      dense: dense,
-      style: style,
-      selectedColor: selectedColor,
-      iconColor: iconColor,
-      textColor: textColor,
-      contentPadding: contentPadding,
-      child: child,
-    );
+    final ListTileMoreCustomizableTheme ancestorTheme =
+        context.findAncestorWidgetOfExactType<ListTileMoreCustomizableTheme>();
+    return identical(this, ancestorTheme)
+        ? child
+        : ListTileMoreCustomizableTheme(
+            dense: dense,
+            style: style,
+            selectedColor: selectedColor,
+            iconColor: iconColor,
+            textColor: textColor,
+            contentPadding: contentPadding,
+            child: child,
+          );
   }
 
   @override
-  bool updateShouldNotify(ListTileTheme oldWidget) {
-    return dense != oldWidget.dense
-        || style != oldWidget.style
-        || selectedColor != oldWidget.selectedColor
-        || iconColor != oldWidget.iconColor
-        || textColor != oldWidget.textColor
-        || contentPadding != oldWidget.contentPadding;
+  bool updateShouldNotify(ListTileMoreCustomizableTheme oldWidget) {
+    return dense != oldWidget.dense ||
+        style != oldWidget.style ||
+        selectedColor != oldWidget.selectedColor ||
+        iconColor != oldWidget.iconColor ||
+        textColor != oldWidget.textColor ||
+        contentPadding != oldWidget.contentPadding;
   }
 }
 
-/// Where to place the control in widgets that use [ListTile] to position a
+/// Where to place the control in widgets that use [ListTileMoreCustomizable] to position a
 /// control next to a label.
 ///
 /// See also:
 ///
-///  * [CheckboxListTile], which combines a [ListTile] with a [Checkbox].
-///  * [RadioListTile], which combines a [ListTile] with a [Radio] button.
-enum ListTileControlAffinity {
+///  * [CheckboxListTile], which combines a [ListTileMoreCustomizable] with a [Checkbox].
+///  * [RadioListTile], which combines a [ListTileMoreCustomizable] with a [Radio] button.
+enum ListTileMoreCustomizableControlAffinity {
   /// Position the control on the leading edge, and the secondary widget, if
   /// any, on the trailing edge.
   leading,
@@ -163,470 +174,26 @@ enum ListTileControlAffinity {
   platform,
 }
 
-/// A single fixed-height row that typically contains some text as well as
-/// a leading or trailing icon.
-///
-/// {@youtube 560 315 https://www.youtube.com/watch?v=l8dj0yPBvgQ}
-///
-/// A list tile contains one to three lines of text optionally flanked by icons or
-/// other widgets, such as check boxes. The icons (or other widgets) for the
-/// tile are defined with the [leading] and [trailing] parameters. The first
-/// line of text is not optional and is specified with [title]. The value of
-/// [subtitle], which _is_ optional, will occupy the space allocated for an
-/// additional line of text, or two lines if [isThreeLine] is true. If [dense]
-/// is true then the overall height of this tile and the size of the
-/// [DefaultTextStyle]s that wrap the [title] and [subtitle] widget are reduced.
-///
-/// It is the responsibility of the caller to ensure that [title] does not wrap,
-/// and to ensure that [subtitle] doesn't wrap (if [isThreeLine] is false) or
-/// wraps to two lines (if it is true).
-///
-/// The heights of the [leading] and [trailing] widgets are constrained
-/// according to the
-/// [Material spec](https://material.io/design/components/lists.html).
-/// An exception is made for one-line ListTiles for accessibility. Please
-/// see the example below to see how to adhere to both Material spec and
-/// accessibility requirements.
-///
-/// Note that [leading] and [trailing] widgets can expand as far as they wish
-/// horizontally, so ensure that they are properly constrained.
-///
-/// List tiles are typically used in [ListView]s, or arranged in [Column]s in
-/// [Drawer]s and [Card]s.
-///
-/// Requires one of its ancestors to be a [Material] widget.
-///
-/// {@tool snippet}
-///
-/// This example uses a [ListView] to demonstrate different configurations of
-/// [ListTile]s in [Card]s.
-///
-/// ![Different variations of ListTile](https://flutter.github.io/assets-for-api-docs/assets/material/list_tile.png)
-///
-/// ```dart
-/// ListView(
-///   children: const <Widget>[
-///     Card(child: ListTile(title: Text('One-line ListTile'))),
-///     Card(
-///       child: ListTile(
-///         leading: FlutterLogo(),
-///         title: Text('One-line with leading widget'),
-///       ),
-///     ),
-///     Card(
-///       child: ListTile(
-///         title: Text('One-line with trailing widget'),
-///         trailing: Icon(Icons.more_vert),
-///       ),
-///     ),
-///     Card(
-///       child: ListTile(
-///         leading: FlutterLogo(),
-///         title: Text('One-line with both widgets'),
-///         trailing: Icon(Icons.more_vert),
-///       ),
-///     ),
-///     Card(
-///       child: ListTile(
-///         title: Text('One-line dense ListTile'),
-///         dense: true,
-///       ),
-///     ),
-///     Card(
-///       child: ListTile(
-///         leading: FlutterLogo(size: 56.0),
-///         title: Text('Two-line ListTile'),
-///         subtitle: Text('Here is a second line'),
-///         trailing: Icon(Icons.more_vert),
-///       ),
-///     ),
-///     Card(
-///       child: ListTile(
-///         leading: FlutterLogo(size: 72.0),
-///         title: Text('Three-line ListTile'),
-///         subtitle: Text(
-///           'A sufficiently long subtitle warrants three lines.'
-///         ),
-///         trailing: Icon(Icons.more_vert),
-///         isThreeLine: true,
-///       ),
-///     ),
-///   ],
-/// )
-/// ```
-/// {@end-tool}
-/// {@tool snippet}
-///
-/// Tiles can be much more elaborate. Here is a tile which can be tapped, but
-/// which is disabled when the `_act` variable is not 2. When the tile is
-/// tapped, the whole row has an ink splash effect (see [InkWell]).
-///
-/// ```dart
-/// int _act = 1;
-/// // ...
-/// ListTile(
-///   leading: const Icon(Icons.flight_land),
-///   title: const Text('Trix\'s airplane'),
-///   subtitle: _act != 2 ? const Text('The airplane is only in Act II.') : null,
-///   enabled: _act == 2,
-///   onTap: () { /* react to the tile being tapped */ }
-/// )
-/// ```
-/// {@end-tool}
-///
-/// To be accessible, tappable [leading] and [trailing] widgets have to
-/// be at least 48x48 in size. However, to adhere to the Material spec,
-/// [trailing] and [leading] widgets in one-line ListTiles should visually be
-/// at most 32 ([dense]: true) or 40 ([dense]: false) in height, which may
-/// conflict with the accessibility requirement.
-///
-/// For this reason, a one-line ListTile allows the height of [leading]
-/// and [trailing] widgets to be constrained by the height of the ListTile.
-/// This allows for the creation of tappable [leading] and [trailing] widgets
-/// that are large enough, but it is up to the developer to ensure that
-/// their widgets follow the Material spec.
-///
-/// {@tool snippet}
-///
-/// Here is an example of a one-line, non-[dense] ListTile with a
-/// tappable leading widget that adheres to accessibility requirements and
-/// the Material spec. To adjust the use case below for a one-line, [dense]
-/// ListTile, adjust the vertical padding to 8.0.
-///
-/// ```dart
-/// ListTile(
-///   leading: GestureDetector(
-///     behavior: HitTestBehavior.translucent,
-///     onTap: () {},
-///     child: Container(
-///       width: 48,
-///       height: 48,
-///       padding: EdgeInsets.symmetric(vertical: 4.0),
-///       alignment: Alignment.center,
-///       child: CircleAvatar(),
-///     ),
-///   ),
-///   title: Text('title'),
-///   dense: false,
-/// ),
-/// ```
-/// {@end-tool}
-///
-/// ## The ListTile layout isn't exactly what I want
-///
-/// If the way ListTile pads and positions its elements isn't quite what
-/// you're looking for, it's easy to create custom list items with a
-/// combination of other widgets, such as [Row]s and [Column]s.
-///
-/// {@tool sample --template=stateless_widget_scaffold}
-///
-/// Here is an example of a custom list item that resembles a Youtube related
-/// video list item created with [Expanded] and [Container] widgets.
-///
-/// ![Custom list item a](https://flutter.github.io/assets-for-api-docs/assets/widgets/custom_list_item_a.png)
-///
-/// ```dart preamble
-/// class CustomListItem extends StatelessWidget {
-///   const CustomListItem({
-///     this.thumbnail,
-///     this.title,
-///     this.user,
-///     this.viewCount,
-///   });
-///
-///   final Widget thumbnail;
-///   final String title;
-///   final String user;
-///   final int viewCount;
-///
-///   @override
-///   Widget build(BuildContext context) {
-///     return Padding(
-///       padding: const EdgeInsets.symmetric(vertical: 5.0),
-///       child: Row(
-///         crossAxisAlignment: CrossAxisAlignment.start,
-///         children: <Widget>[
-///           Expanded(
-///             flex: 2,
-///             child: thumbnail,
-///           ),
-///           Expanded(
-///             flex: 3,
-///             child: _VideoDescription(
-///               title: title,
-///               user: user,
-///               viewCount: viewCount,
-///             ),
-///           ),
-///           const Icon(
-///             Icons.more_vert,
-///             size: 16.0,
-///           ),
-///         ],
-///       ),
-///     );
-///   }
-/// }
-///
-/// class _VideoDescription extends StatelessWidget {
-///   const _VideoDescription({
-///     Key key,
-///     this.title,
-///     this.user,
-///     this.viewCount,
-///   }) : super(key: key);
-///
-///   final String title;
-///   final String user;
-///   final int viewCount;
-///
-///   @override
-///   Widget build(BuildContext context) {
-///     return Padding(
-///       padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-///       child: Column(
-///         crossAxisAlignment: CrossAxisAlignment.start,
-///         children: <Widget>[
-///           Text(
-///             title,
-///             style: const TextStyle(
-///               fontWeight: FontWeight.w500,
-///               fontSize: 14.0,
-///             ),
-///           ),
-///           const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
-///           Text(
-///             user,
-///             style: const TextStyle(fontSize: 10.0),
-///           ),
-///           const Padding(padding: EdgeInsets.symmetric(vertical: 1.0)),
-///           Text(
-///             '$viewCount views',
-///             style: const TextStyle(fontSize: 10.0),
-///           ),
-///         ],
-///       ),
-///     );
-///   }
-/// }
-/// ```
-///
-/// ```dart
-/// Widget build(BuildContext context) {
-///   return ListView(
-///     padding: const EdgeInsets.all(8.0),
-///     itemExtent: 106.0,
-///     children: <CustomListItem>[
-///       CustomListItem(
-///         user: 'Flutter',
-///         viewCount: 999000,
-///         thumbnail: Container(
-///           decoration: const BoxDecoration(color: Colors.blue),
-///         ),
-///         title: 'The Flutter YouTube Channel',
-///       ),
-///       CustomListItem(
-///         user: 'Dash',
-///         viewCount: 884000,
-///         thumbnail: Container(
-///           decoration: const BoxDecoration(color: Colors.yellow),
-///         ),
-///         title: 'Announcing Flutter 1.0',
-///       ),
-///     ],
-///   );
-/// }
-/// ```
-/// {@end-tool}
-///
-/// {@tool sample --template=stateless_widget_scaffold}
-///
-/// Here is an example of an article list item with multiline titles and
-/// subtitles. It utilizes [Row]s and [Column]s, as well as [Expanded] and
-/// [AspectRatio] widgets to organize its layout.
-///
-/// ![Custom list item b](https://flutter.github.io/assets-for-api-docs/assets/widgets/custom_list_item_b.png)
-///
-/// ```dart preamble
-/// class _ArticleDescription extends StatelessWidget {
-///   _ArticleDescription({
-///     Key key,
-///     this.title,
-///     this.subtitle,
-///     this.author,
-///     this.publishDate,
-///     this.readDuration,
-///   }) : super(key: key);
-///
-///   final String title;
-///   final String subtitle;
-///   final String author;
-///   final String publishDate;
-///   final String readDuration;
-///
-///   @override
-///   Widget build(BuildContext context) {
-///     return Column(
-///       crossAxisAlignment: CrossAxisAlignment.start,
-///       children: <Widget>[
-///         Expanded(
-///           flex: 2,
-///           child: Column(
-///             crossAxisAlignment: CrossAxisAlignment.start,
-///             children: <Widget>[
-///               Text(
-///                 '$title',
-///                 maxLines: 2,
-///                 overflow: TextOverflow.ellipsis,
-///                 style: const TextStyle(
-///                   fontWeight: FontWeight.bold,
-///                 ),
-///               ),
-///               const Padding(padding: EdgeInsets.only(bottom: 2.0)),
-///               Text(
-///                 '$subtitle',
-///                 maxLines: 2,
-///                 overflow: TextOverflow.ellipsis,
-///                 style: const TextStyle(
-///                   fontSize: 12.0,
-///                   color: Colors.black54,
-///                 ),
-///               ),
-///             ],
-///           ),
-///         ),
-///         Expanded(
-///           flex: 1,
-///           child: Column(
-///             crossAxisAlignment: CrossAxisAlignment.start,
-///             mainAxisAlignment: MainAxisAlignment.end,
-///             children: <Widget>[
-///               Text(
-///                 '$author',
-///                 style: const TextStyle(
-///                   fontSize: 12.0,
-///                   color: Colors.black87,
-///                 ),
-///               ),
-///               Text(
-///                 '$publishDate · $readDuration ★',
-///                 style: const TextStyle(
-///                   fontSize: 12.0,
-///                   color: Colors.black54,
-///                 ),
-///               ),
-///             ],
-///           ),
-///         ),
-///       ],
-///     );
-///   }
-/// }
-///
-/// class CustomListItemTwo extends StatelessWidget {
-///   CustomListItemTwo({
-///     Key key,
-///     this.thumbnail,
-///     this.title,
-///     this.subtitle,
-///     this.author,
-///     this.publishDate,
-///     this.readDuration,
-///   }) : super(key: key);
-///
-///   final Widget thumbnail;
-///   final String title;
-///   final String subtitle;
-///   final String author;
-///   final String publishDate;
-///   final String readDuration;
-///
-///   @override
-///   Widget build(BuildContext context) {
-///     return Padding(
-///       padding: const EdgeInsets.symmetric(vertical: 10.0),
-///       child: SizedBox(
-///         height: 100,
-///         child: Row(
-///           crossAxisAlignment: CrossAxisAlignment.start,
-///           children: <Widget>[
-///             AspectRatio(
-///               aspectRatio: 1.0,
-///               child: thumbnail,
-///             ),
-///             Expanded(
-///               child: Padding(
-///                 padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
-///                 child: _ArticleDescription(
-///                   title: title,
-///                   subtitle: subtitle,
-///                   author: author,
-///                   publishDate: publishDate,
-///                   readDuration: readDuration,
-///                 ),
-///               ),
-///             )
-///           ],
-///         ),
-///       ),
-///     );
-///   }
-/// }
-/// ```
-///
-/// ```dart
-/// Widget build(BuildContext context) {
-///   return ListView(
-///     padding: const EdgeInsets.all(10.0),
-///     children: <Widget>[
-///       CustomListItemTwo(
-///         thumbnail: Container(
-///           decoration: const BoxDecoration(color: Colors.pink),
-///         ),
-///         title: 'Flutter 1.0 Launch',
-///         subtitle:
-///           'Flutter continues to improve and expand its horizons.'
-///           'This text should max out at two lines and clip',
-///         author: 'Dash',
-///         publishDate: 'Dec 28',
-///         readDuration: '5 mins',
-///       ),
-///       CustomListItemTwo(
-///         thumbnail: Container(
-///           decoration: const BoxDecoration(color: Colors.blue),
-///         ),
-///         title: 'Flutter 1.2 Release - Continual updates to the framework',
-///         subtitle: 'Flutter once again improves and makes updates.',
-///         author: 'Flutter',
-///         publishDate: 'Feb 26',
-///         readDuration: '12 mins',
-///       ),
-///     ],
-///   );
-/// }
-/// ```
-/// {@end-tool}
-///
 /// See also:
 ///
-///  * [ListTileTheme], which defines visual properties for [ListTile]s.
-///  * [ListView], which can display an arbitrary number of [ListTile]s
+///  * [ListTileMoreCustomizableTheme], which defines visual properties for [ListTileMoreCustomizable]s.
+///  * [ListView], which can display an arbitrary number of [ListTileMoreCustomizable]s
 ///    in a scrolling list.
 ///  * [CircleAvatar], which shows an icon representing a person and is often
 ///    used as the [leading] element of a ListTile.
-///  * [Card], which can be used with [Column] to show a few [ListTile]s.
-///  * [Divider], which can be used to separate [ListTile]s.
-///  * [ListTile.divideTiles], a utility for inserting [Divider]s in between [ListTile]s.
+///  * [Card], which can be used with [Column] to show a few [ListTileMoreCustomizable]s.
+///  * [Divider], which can be used to separate [ListTileMoreCustomizable]s.
+///  * [ListTileMoreCustomizable.divideTiles], a utility for inserting [Divider]s in between [ListTileMoreCustomizable]s.
 ///  * [CheckboxListTile], [RadioListTile], and [SwitchListTile], widgets
 ///    that combine [ListTile] with other controls.
 ///  * <https://material.io/design/components/lists.html>
-class ListTile extends StatelessWidget {
+class ListTileMoreCustomizable extends StatefulWidget {
   /// Creates a list tile.
   ///
   /// If [isThreeLine] is true, then [subtitle] must not be null.
   ///
   /// Requires one of its ancestors to be a [Material] widget.
-  const ListTile({
+  const ListTileMoreCustomizable({
     Key key,
     this.leading,
     this.title,
@@ -639,7 +206,8 @@ class ListTile extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.selected = false,
-  }) : assert(isThreeLine != null),
+    this.horizontalTitleGap = _defaultHorizontalTitleGap,
+  })  : assert(isThreeLine != null),
         assert(enabled != null),
         assert(selected != null),
         assert(!isThreeLine || subtitle != null),
@@ -689,14 +257,14 @@ class ListTile extends StatelessWidget {
 
   /// Whether this list tile is part of a vertically dense list.
   ///
-  /// If this property is null then its value is based on [ListTileTheme.dense].
+  /// If this property is null then its value is based on [ListTileMoreCustomizableTheme.dense].
   ///
   /// Dense list tiles default to a smaller height.
   final bool dense;
 
   /// The tile's internal padding.
   ///
-  /// Insets a [ListTile]'s contents: its [leading], [title], [subtitle],
+  /// Insets a [ListTileMoreCustomizable]'s contents: its [leading], [title], [subtitle],
   /// and [trailing] widgets.
   ///
   /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
@@ -712,7 +280,7 @@ class ListTile extends StatelessWidget {
   /// Called when the user taps this list tile.
   ///
   /// Inoperative if [enabled] is false.
-  final GestureTapCallback onTap;
+  final GestureTapDownCallback onTap;
 
   /// Called when the user long-presses on this list tile.
   ///
@@ -722,8 +290,10 @@ class ListTile extends StatelessWidget {
   /// If this tile is also [enabled] then icons and text are rendered with the same color.
   ///
   /// By default the selected color is the theme's primary color. The selected color
-  /// can be overridden with a [ListTileTheme].
+  /// can be overridden with a [ListTileMoreCustomizableTheme].
   final bool selected;
+
+  final double horizontalTitleGap;
 
   /// Add a one pixel border in between each tile. If color isn't specified the
   /// [ThemeData.dividerColor] of the context's [Theme] is used.
@@ -731,7 +301,10 @@ class ListTile extends StatelessWidget {
   /// See also:
   ///
   ///  * [Divider], which you can use to obtain this effect manually.
-  static Iterable<Widget> divideTiles({ BuildContext context, @required Iterable<Widget> tiles, Color color }) sync* {
+  static Iterable<Widget> divideTiles(
+      {BuildContext context,
+      @required Iterable<Widget> tiles,
+      Color color}) sync* {
     assert(tiles != null);
     assert(color != null || context != null);
 
@@ -753,41 +326,49 @@ class ListTile extends StatelessWidget {
       );
       tile = iterator.current;
     }
-    if (isNotEmpty)
-      yield tile;
+    if (isNotEmpty) yield tile;
   }
 
-  Color _iconColor(ThemeData theme, ListTileTheme tileTheme) {
-    if (!enabled)
-      return theme.disabledColor;
+  @override
+  _ListTileMoreCustomizableState createState() =>
+      _ListTileMoreCustomizableState();
+}
 
-    if (selected && tileTheme?.selectedColor != null)
+class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
+  TapDownDetails tapDownDetails;
+
+  Color _iconColor(ThemeData theme, ListTileMoreCustomizableTheme tileTheme) {
+    if (!widget.enabled) return theme.disabledColor;
+
+    if (widget.selected && tileTheme?.selectedColor != null)
       return tileTheme.selectedColor;
 
-    if (!selected && tileTheme?.iconColor != null)
+    if (!widget.selected && tileTheme?.iconColor != null)
       return tileTheme.iconColor;
 
     switch (theme.brightness) {
       case Brightness.light:
-        return selected ? theme.primaryColor : Colors.black45;
+        return widget.selected ? theme.primaryColor : Colors.black45;
       case Brightness.dark:
-        return selected ? theme.accentColor : null; // null - use current icon theme color
+        return widget.selected
+            ? theme.accentColor
+            : null; // null - use current icon theme color
     }
     assert(theme.brightness != null);
     return null;
   }
 
-  Color _textColor(ThemeData theme, ListTileTheme tileTheme, Color defaultColor) {
-    if (!enabled)
-      return theme.disabledColor;
+  Color _textColor(ThemeData theme, ListTileMoreCustomizableTheme tileTheme,
+      Color defaultColor) {
+    if (!widget.enabled) return theme.disabledColor;
 
-    if (selected && tileTheme?.selectedColor != null)
+    if (widget.selected && tileTheme?.selectedColor != null)
       return tileTheme.selectedColor;
 
-    if (!selected && tileTheme?.textColor != null)
+    if (!widget.selected && tileTheme?.textColor != null)
       return tileTheme.textColor;
 
-    if (selected) {
+    if (widget.selected) {
       switch (theme.brightness) {
         case Brightness.light:
           return theme.primaryColor;
@@ -798,18 +379,19 @@ class ListTile extends StatelessWidget {
     return defaultColor;
   }
 
-  bool _isDenseLayout(ListTileTheme tileTheme) {
-    return dense ?? tileTheme?.dense ?? false;
+  bool _isDenseLayout(ListTileMoreCustomizableTheme tileTheme) {
+    return widget.dense ?? tileTheme?.dense ?? false;
   }
 
-  TextStyle _titleTextStyle(ThemeData theme, ListTileTheme tileTheme) {
+  TextStyle _titleTextStyle(
+      ThemeData theme, ListTileMoreCustomizableTheme tileTheme) {
     TextStyle style;
     if (tileTheme != null) {
       switch (tileTheme.style) {
-        case ListTileStyle.drawer:
+        case ListTileMoreCustomizableStyle.drawer:
           style = theme.textTheme.bodyText1;
           break;
-        case ListTileStyle.list:
+        case ListTileMoreCustomizableStyle.list:
           style = theme.textTheme.subtitle1;
           break;
       }
@@ -822,9 +404,11 @@ class ListTile extends StatelessWidget {
         : style.copyWith(color: color);
   }
 
-  TextStyle _subtitleTextStyle(ThemeData theme, ListTileTheme tileTheme) {
+  TextStyle _subtitleTextStyle(
+      ThemeData theme, ListTileMoreCustomizableTheme tileTheme) {
     final TextStyle style = theme.textTheme.bodyText2;
-    final Color color = _textColor(theme, tileTheme, theme.textTheme.caption.color);
+    final Color color =
+        _textColor(theme, tileTheme, theme.textTheme.caption.color);
     return _isDenseLayout(tileTheme)
         ? style.copyWith(color: color, fontSize: 12.0)
         : style.copyWith(color: color);
@@ -834,17 +418,18 @@ class ListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterial(context));
     final ThemeData theme = Theme.of(context);
-    final ListTileTheme tileTheme = ListTileTheme.of(context);
+    final ListTileMoreCustomizableTheme tileTheme =
+        ListTileMoreCustomizableTheme.of(context);
 
     IconThemeData iconThemeData;
-    if (leading != null || trailing != null)
+    if (widget.leading != null || widget.trailing != null)
       iconThemeData = IconThemeData(color: _iconColor(theme, tileTheme));
 
     Widget leadingIcon;
-    if (leading != null) {
+    if (widget.leading != null) {
       leadingIcon = IconTheme.merge(
         data: iconThemeData,
-        child: leading,
+        child: widget.leading,
       );
     }
 
@@ -852,72 +437,84 @@ class ListTile extends StatelessWidget {
     final Widget titleText = AnimatedDefaultTextStyle(
       style: titleStyle,
       duration: kThemeChangeDuration,
-      child: title ?? const SizedBox(),
+      child: widget.title ?? const SizedBox(),
     );
 
     Widget subtitleText;
     TextStyle subtitleStyle;
-    if (subtitle != null) {
+    if (widget.subtitle != null) {
       subtitleStyle = _subtitleTextStyle(theme, tileTheme);
       subtitleText = AnimatedDefaultTextStyle(
         style: subtitleStyle,
         duration: kThemeChangeDuration,
-        child: subtitle,
+        child: widget.subtitle,
       );
     }
 
     Widget trailingIcon;
-    if (trailing != null) {
+    if (widget.trailing != null) {
       trailingIcon = IconTheme.merge(
         data: iconThemeData,
-        child: trailing,
+        child: widget.trailing,
       );
     }
 
-    const EdgeInsets _defaultContentPadding = EdgeInsets.symmetric(horizontal: 16.0);
+    const EdgeInsets _defaultContentPadding =
+        EdgeInsets.symmetric(horizontal: 16.0);
     final TextDirection textDirection = Directionality.of(context);
-    final EdgeInsets resolvedContentPadding = contentPadding?.resolve(textDirection)
-        ?? tileTheme?.contentPadding?.resolve(textDirection)
-        ?? _defaultContentPadding;
+    final EdgeInsets resolvedContentPadding =
+        widget.contentPadding?.resolve(textDirection) ??
+            tileTheme?.contentPadding?.resolve(textDirection) ??
+            _defaultContentPadding;
 
     return InkWell(
-      onTap: enabled ? onTap : null,
-      onLongPress: enabled ? onLongPress : null,
-      canRequestFocus: enabled,
+      onTap: widget.enabled ? toOnTap : null,
+      onLongPress: widget.enabled ? widget.onLongPress : null,
+      onTapDown: widget.enabled ? recordTapDownDetails : null,
+      canRequestFocus: widget.enabled,
       child: Semantics(
-        selected: selected,
-        enabled: enabled,
+        selected: widget.selected,
+        enabled: widget.enabled,
         child: SafeArea(
           top: false,
           bottom: false,
           minimum: resolvedContentPadding,
-          child: _ListTile(
+          child: _ListTileMoreCustomizable(
             leading: leadingIcon,
             title: titleText,
             subtitle: subtitleText,
             trailing: trailingIcon,
             isDense: _isDenseLayout(tileTheme),
-            isThreeLine: isThreeLine,
+            isThreeLine: widget.isThreeLine,
             textDirection: textDirection,
             titleBaselineType: titleStyle.textBaseline,
             subtitleBaselineType: subtitleStyle?.textBaseline,
+            horizontalTitleGap: widget.horizontalTitleGap,
           ),
         ),
       ),
     );
   }
+
+  toOnTap() {
+    widget.onTap(tapDownDetails);
+  }
+
+  recordTapDownDetails(TapDownDetails d) {
+    tapDownDetails = d;
+  }
 }
 
 // Identifies the children of a _ListTileElement.
-enum _ListTileSlot {
+enum _ListTileMoreCustomizableSlot {
   leading,
   title,
   subtitle,
   trailing,
 }
 
-class _ListTile extends RenderObjectWidget {
-  const _ListTile({
+class _ListTileMoreCustomizable extends RenderObjectWidget {
+  const _ListTileMoreCustomizable({
     Key key,
     this.leading,
     this.title,
@@ -927,8 +524,9 @@ class _ListTile extends RenderObjectWidget {
     @required this.isDense,
     @required this.textDirection,
     @required this.titleBaselineType,
+    @required this.horizontalTitleGap,
     this.subtitleBaselineType,
-  }) : assert(isThreeLine != null),
+  })  : assert(isThreeLine != null),
         assert(isDense != null),
         assert(textDirection != null),
         assert(titleBaselineType != null),
@@ -943,23 +541,27 @@ class _ListTile extends RenderObjectWidget {
   final TextDirection textDirection;
   final TextBaseline titleBaselineType;
   final TextBaseline subtitleBaselineType;
+  final double horizontalTitleGap;
 
   @override
-  _ListTileElement createElement() => _ListTileElement(this);
+  _ListTileMoreCustomizableElement createElement() =>
+      _ListTileMoreCustomizableElement(this);
 
   @override
-  _RenderListTile createRenderObject(BuildContext context) {
-    return _RenderListTile(
+  _RenderListTileMoreCustomizable createRenderObject(BuildContext context) {
+    return _RenderListTileMoreCustomizable(
       isThreeLine: isThreeLine,
       isDense: isDense,
       textDirection: textDirection,
       titleBaselineType: titleBaselineType,
       subtitleBaselineType: subtitleBaselineType,
+      horizontalTitleGap: horizontalTitleGap,
     );
   }
 
   @override
-  void updateRenderObject(BuildContext context, _RenderListTile renderObject) {
+  void updateRenderObject(
+      BuildContext context, _RenderListTileMoreCustomizable renderObject) {
     renderObject
       ..isThreeLine = isThreeLine
       ..isDense = isDense
@@ -969,17 +571,22 @@ class _ListTile extends RenderObjectWidget {
   }
 }
 
-class _ListTileElement extends RenderObjectElement {
-  _ListTileElement(_ListTile widget) : super(widget);
+class _ListTileMoreCustomizableElement extends RenderObjectElement {
+  _ListTileMoreCustomizableElement(_ListTileMoreCustomizable widget)
+      : super(widget);
 
-  final Map<_ListTileSlot, Element> slotToChild = <_ListTileSlot, Element>{};
-  final Map<Element, _ListTileSlot> childToSlot = <Element, _ListTileSlot>{};
+  final Map<_ListTileMoreCustomizableSlot, Element> slotToChild =
+      <_ListTileMoreCustomizableSlot, Element>{};
+  final Map<Element, _ListTileMoreCustomizableSlot> childToSlot =
+      <Element, _ListTileMoreCustomizableSlot>{};
 
   @override
-  _ListTile get widget => super.widget as _ListTile;
+  _ListTileMoreCustomizable get widget =>
+      super.widget as _ListTileMoreCustomizable;
 
   @override
-  _RenderListTile get renderObject => super.renderObject as _RenderListTile;
+  _RenderListTileMoreCustomizable get renderObject =>
+      super.renderObject as _RenderListTileMoreCustomizable;
 
   @override
   void visitChildren(ElementVisitor visitor) {
@@ -990,12 +597,12 @@ class _ListTileElement extends RenderObjectElement {
   void forgetChild(Element child) {
     assert(slotToChild.values.contains(child));
     assert(childToSlot.keys.contains(child));
-    final _ListTileSlot slot = childToSlot[child];
+    final _ListTileMoreCustomizableSlot slot = childToSlot[child];
     childToSlot.remove(child);
     slotToChild.remove(slot);
   }
 
-  void _mountChild(Widget widget, _ListTileSlot slot) {
+  void _mountChild(Widget widget, _ListTileMoreCustomizableSlot slot) {
     final Element oldChild = slotToChild[slot];
     final Element newChild = updateChild(oldChild, widget, slot);
     if (oldChild != null) {
@@ -1011,13 +618,13 @@ class _ListTileElement extends RenderObjectElement {
   @override
   void mount(Element parent, dynamic newSlot) {
     super.mount(parent, newSlot);
-    _mountChild(widget.leading, _ListTileSlot.leading);
-    _mountChild(widget.title, _ListTileSlot.title);
-    _mountChild(widget.subtitle, _ListTileSlot.subtitle);
-    _mountChild(widget.trailing, _ListTileSlot.trailing);
+    _mountChild(widget.leading, _ListTileMoreCustomizableSlot.leading);
+    _mountChild(widget.title, _ListTileMoreCustomizableSlot.title);
+    _mountChild(widget.subtitle, _ListTileMoreCustomizableSlot.subtitle);
+    _mountChild(widget.trailing, _ListTileMoreCustomizableSlot.trailing);
   }
 
-  void _updateChild(Widget widget, _ListTileSlot slot) {
+  void _updateChild(Widget widget, _ListTileMoreCustomizableSlot slot) {
     final Element oldChild = slotToChild[slot];
     final Element newChild = updateChild(oldChild, widget, slot);
     if (oldChild != null) {
@@ -1031,27 +638,28 @@ class _ListTileElement extends RenderObjectElement {
   }
 
   @override
-  void update(_ListTile newWidget) {
+  void update(_ListTileMoreCustomizable newWidget) {
     super.update(newWidget);
     assert(widget == newWidget);
-    _updateChild(widget.leading, _ListTileSlot.leading);
-    _updateChild(widget.title, _ListTileSlot.title);
-    _updateChild(widget.subtitle, _ListTileSlot.subtitle);
-    _updateChild(widget.trailing, _ListTileSlot.trailing);
+    _updateChild(widget.leading, _ListTileMoreCustomizableSlot.leading);
+    _updateChild(widget.title, _ListTileMoreCustomizableSlot.title);
+    _updateChild(widget.subtitle, _ListTileMoreCustomizableSlot.subtitle);
+    _updateChild(widget.trailing, _ListTileMoreCustomizableSlot.trailing);
   }
 
-  void _updateRenderObject(RenderBox child, _ListTileSlot slot) {
+  void _updateRenderObject(
+      RenderBox child, _ListTileMoreCustomizableSlot slot) {
     switch (slot) {
-      case _ListTileSlot.leading:
+      case _ListTileMoreCustomizableSlot.leading:
         renderObject.leading = child;
         break;
-      case _ListTileSlot.title:
+      case _ListTileMoreCustomizableSlot.title:
         renderObject.title = child;
         break;
-      case _ListTileSlot.subtitle:
+      case _ListTileMoreCustomizableSlot.subtitle:
         renderObject.subtitle = child;
         break;
-      case _ListTileSlot.trailing:
+      case _ListTileMoreCustomizableSlot.trailing:
         renderObject.trailing = child;
         break;
     }
@@ -1060,8 +668,9 @@ class _ListTileElement extends RenderObjectElement {
   @override
   void insertChildRenderObject(RenderObject child, dynamic slotValue) {
     assert(child is RenderBox);
-    assert(slotValue is _ListTileSlot);
-    final _ListTileSlot slot = slotValue as _ListTileSlot;
+    assert(slotValue is _ListTileMoreCustomizableSlot);
+    final _ListTileMoreCustomizableSlot slot =
+        slotValue as _ListTileMoreCustomizableSlot;
     _updateRenderObject(child as RenderBox, slot);
     assert(renderObject.childToSlot.keys.contains(child));
     assert(renderObject.slotToChild.keys.contains(slot));
@@ -1082,33 +691,38 @@ class _ListTileElement extends RenderObjectElement {
   }
 }
 
-class _RenderListTile extends RenderBox {
-  _RenderListTile({
+class _RenderListTileMoreCustomizable extends RenderBox {
+  _RenderListTileMoreCustomizable({
     @required bool isDense,
     @required bool isThreeLine,
     @required TextDirection textDirection,
     @required TextBaseline titleBaselineType,
+    @required double horizontalTitleGap,
     TextBaseline subtitleBaselineType,
-  }) : assert(isDense != null),
+  })  : assert(isDense != null),
         assert(isThreeLine != null),
         assert(textDirection != null),
         assert(titleBaselineType != null),
+        assert(horizontalTitleGap != null),
         _isDense = isDense,
         _isThreeLine = isThreeLine,
         _textDirection = textDirection,
         _titleBaselineType = titleBaselineType,
+        _horizontalTitleGap = horizontalTitleGap,
         _subtitleBaselineType = subtitleBaselineType;
 
   static const double _minLeadingWidth = 40.0;
-  // The horizontal gap between the titles and the leading/trailing widgets
-  static const double _horizontalTitleGap = 16.0;
+
   // The minimum padding on the top and bottom of the title and subtitle widgets.
   static const double _minVerticalPadding = 4.0;
 
-  final Map<_ListTileSlot, RenderBox> slotToChild = <_ListTileSlot, RenderBox>{};
-  final Map<RenderBox, _ListTileSlot> childToSlot = <RenderBox, _ListTileSlot>{};
+  final Map<_ListTileMoreCustomizableSlot, RenderBox> slotToChild =
+      <_ListTileMoreCustomizableSlot, RenderBox>{};
+  final Map<RenderBox, _ListTileMoreCustomizableSlot> childToSlot =
+      <RenderBox, _ListTileMoreCustomizableSlot>{};
 
-  RenderBox _updateChild(RenderBox oldChild, RenderBox newChild, _ListTileSlot slot) {
+  RenderBox _updateChild(RenderBox oldChild, RenderBox newChild,
+      _ListTileMoreCustomizableSlot slot) {
     if (oldChild != null) {
       dropChild(oldChild);
       childToSlot.remove(oldChild);
@@ -1123,102 +737,109 @@ class _RenderListTile extends RenderBox {
   }
 
   RenderBox _leading;
+
   RenderBox get leading => _leading;
+
   set leading(RenderBox value) {
-    _leading = _updateChild(_leading, value, _ListTileSlot.leading);
+    _leading =
+        _updateChild(_leading, value, _ListTileMoreCustomizableSlot.leading);
   }
 
   RenderBox _title;
+
   RenderBox get title => _title;
+
   set title(RenderBox value) {
-    _title = _updateChild(_title, value, _ListTileSlot.title);
+    _title = _updateChild(_title, value, _ListTileMoreCustomizableSlot.title);
   }
 
   RenderBox _subtitle;
+
   RenderBox get subtitle => _subtitle;
+
   set subtitle(RenderBox value) {
-    _subtitle = _updateChild(_subtitle, value, _ListTileSlot.subtitle);
+    _subtitle =
+        _updateChild(_subtitle, value, _ListTileMoreCustomizableSlot.subtitle);
   }
 
   RenderBox _trailing;
+
   RenderBox get trailing => _trailing;
+
   set trailing(RenderBox value) {
-    _trailing = _updateChild(_trailing, value, _ListTileSlot.trailing);
+    _trailing =
+        _updateChild(_trailing, value, _ListTileMoreCustomizableSlot.trailing);
   }
 
   // The returned list is ordered for hit testing.
   Iterable<RenderBox> get _children sync* {
-    if (leading != null)
-      yield leading;
-    if (title != null)
-      yield title;
-    if (subtitle != null)
-      yield subtitle;
-    if (trailing != null)
-      yield trailing;
+    if (leading != null) yield leading;
+    if (title != null) yield title;
+    if (subtitle != null) yield subtitle;
+    if (trailing != null) yield trailing;
   }
 
   bool get isDense => _isDense;
   bool _isDense;
+
   set isDense(bool value) {
     assert(value != null);
-    if (_isDense == value)
-      return;
+    if (_isDense == value) return;
     _isDense = value;
     markNeedsLayout();
   }
 
   bool get isThreeLine => _isThreeLine;
   bool _isThreeLine;
+
   set isThreeLine(bool value) {
     assert(value != null);
-    if (_isThreeLine == value)
-      return;
+    if (_isThreeLine == value) return;
     _isThreeLine = value;
     markNeedsLayout();
   }
 
   TextDirection get textDirection => _textDirection;
   TextDirection _textDirection;
+
   set textDirection(TextDirection value) {
     assert(value != null);
-    if (_textDirection == value)
-      return;
+    if (_textDirection == value) return;
     _textDirection = value;
     markNeedsLayout();
   }
 
   TextBaseline get titleBaselineType => _titleBaselineType;
   TextBaseline _titleBaselineType;
+
   set titleBaselineType(TextBaseline value) {
     assert(value != null);
-    if (_titleBaselineType == value)
-      return;
+    if (_titleBaselineType == value) return;
     _titleBaselineType = value;
     markNeedsLayout();
   }
 
   TextBaseline get subtitleBaselineType => _subtitleBaselineType;
   TextBaseline _subtitleBaselineType;
+
   set subtitleBaselineType(TextBaseline value) {
-    if (_subtitleBaselineType == value)
-      return;
+    if (_subtitleBaselineType == value) return;
     _subtitleBaselineType = value;
     markNeedsLayout();
   }
 
+  double _horizontalTitleGap;
+
   @override
   void attach(PipelineOwner owner) {
     super.attach(owner);
-    for (final RenderBox child in _children)
-      child.attach(owner);
+    for (final RenderBox child in _children) child.attach(owner);
   }
 
   @override
   void detach() {
     super.detach();
-    for (final RenderBox child in _children)
-      child.detach();
+    for (final RenderBox child in _children) child.detach();
   }
 
   @override
@@ -1235,9 +856,9 @@ class _RenderListTile extends RenderBox {
   List<DiagnosticsNode> debugDescribeChildren() {
     final List<DiagnosticsNode> value = <DiagnosticsNode>[];
     void add(RenderBox child, String name) {
-      if (child != null)
-        value.add(child.toDiagnosticsNode(name: name));
+      if (child != null) value.add(child.toDiagnosticsNode(name: name));
     }
+
     add(leading, 'leading');
     add(title, 'title');
     add(subtitle, 'subtitle');
@@ -1259,21 +880,23 @@ class _RenderListTile extends RenderBox {
   @override
   double computeMinIntrinsicWidth(double height) {
     final double leadingWidth = leading != null
-        ? math.max(leading.getMinIntrinsicWidth(height), _minLeadingWidth) + _horizontalTitleGap
+        ? math.max(leading.getMinIntrinsicWidth(height), _minLeadingWidth) +
+            _horizontalTitleGap
         : 0.0;
-    return leadingWidth
-        + math.max(_minWidth(title, height), _minWidth(subtitle, height))
-        + _maxWidth(trailing, height);
+    return leadingWidth +
+        math.max(_minWidth(title, height), _minWidth(subtitle, height)) +
+        _maxWidth(trailing, height);
   }
 
   @override
   double computeMaxIntrinsicWidth(double height) {
     final double leadingWidth = leading != null
-        ? math.max(leading.getMaxIntrinsicWidth(height), _minLeadingWidth) + _horizontalTitleGap
+        ? math.max(leading.getMaxIntrinsicWidth(height), _minLeadingWidth) +
+            _horizontalTitleGap
         : 0.0;
-    return leadingWidth
-        + math.max(_maxWidth(title, height), _maxWidth(subtitle, height))
-        + _maxWidth(trailing, height);
+    return leadingWidth +
+        math.max(_maxWidth(title, height), _maxWidth(subtitle, height)) +
+        _maxWidth(trailing, height);
   }
 
   double get _defaultTileHeight {
@@ -1281,10 +904,8 @@ class _RenderListTile extends RenderBox {
     final bool isTwoLine = !isThreeLine && hasSubtitle;
     final bool isOneLine = !isThreeLine && !hasSubtitle;
 
-    if (isOneLine)
-      return isDense ? 48.0 : 56.0;
-    if (isTwoLine)
-      return isDense ? 64.0 : 72.0;
+    if (isOneLine) return isDense ? 48.0 : 56.0;
+    if (isTwoLine) return isDense ? 64.0 : 72.0;
     return isDense ? 76.0 : 88.0;
   }
 
@@ -1292,7 +913,8 @@ class _RenderListTile extends RenderBox {
   double computeMinIntrinsicHeight(double width) {
     return math.max(
       _defaultTileHeight,
-      title.getMinIntrinsicHeight(width) + (subtitle?.getMinIntrinsicHeight(width) ?? 0.0),
+      title.getMinIntrinsicHeight(width) +
+          (subtitle?.getMinIntrinsicHeight(width) ?? 0.0),
     );
   }
 
@@ -1313,8 +935,7 @@ class _RenderListTile extends RenderBox {
   }
 
   static Size _layoutBox(RenderBox box, BoxConstraints constraints) {
-    if (box == null)
-      return Size.zero;
+    if (box == null) return Size.zero;
     box.layout(constraints, parentUsesSize: true);
     return box.size;
   }
@@ -1343,25 +964,24 @@ class _RenderListTile extends RenderBox {
       maxHeight: isDense ? 48.0 : 56.0,
     );
     final BoxConstraints looseConstraints = constraints.loosen();
-    final BoxConstraints iconConstraints = looseConstraints.enforce(maxIconHeightConstraint);
+    final BoxConstraints iconConstraints =
+        looseConstraints.enforce(maxIconHeightConstraint);
 
     final double tileWidth = looseConstraints.maxWidth;
     final Size leadingSize = _layoutBox(leading, iconConstraints);
     final Size trailingSize = _layoutBox(trailing, iconConstraints);
-    assert(
-    tileWidth != leadingSize.width,
-    'Leading widget consumes entire tile width. Please use a sized widget.'
-    );
-    assert(
-    tileWidth != trailingSize.width,
-    'Trailing widget consumes entire tile width. Please use a sized widget.'
-    );
+    assert(tileWidth != leadingSize.width,
+        'Leading widget consumes entire tile width. Please use a sized widget.');
+    assert(tileWidth != trailingSize.width,
+        'Trailing widget consumes entire tile width. Please use a sized widget.');
 
     final double titleStart = hasLeading
         ? math.max(_minLeadingWidth, leadingSize.width) + _horizontalTitleGap
         : 0.0;
     final BoxConstraints textConstraints = looseConstraints.tighten(
-      width: tileWidth - titleStart - (hasTrailing ? trailingSize.width + _horizontalTitleGap : 0.0),
+      width: tileWidth -
+          titleStart -
+          (hasTrailing ? trailingSize.width + _horizontalTitleGap : 0.0),
     );
     final Size titleSize = _layoutBox(title, textConstraints);
     final Size subtitleSize = _layoutBox(subtitle, textConstraints);
@@ -1384,12 +1004,14 @@ class _RenderListTile extends RenderBox {
     double titleY;
     double subtitleY;
     if (!hasSubtitle) {
-      tileHeight = math.max(defaultTileHeight, titleSize.height + 2.0 * _minVerticalPadding);
+      tileHeight = math.max(
+          defaultTileHeight, titleSize.height + 2.0 * _minVerticalPadding);
       titleY = (tileHeight - titleSize.height) / 2.0;
     } else {
       assert(subtitleBaselineType != null);
       titleY = titleBaseline - _boxBaseline(title, titleBaselineType);
-      subtitleY = subtitleBaseline - _boxBaseline(subtitle, subtitleBaselineType);
+      subtitleY =
+          subtitleBaseline - _boxBaseline(subtitle, subtitleBaselineType);
       tileHeight = defaultTileHeight;
 
       // If the title and subtitle overlap, move the title upwards by half
@@ -1405,8 +1027,10 @@ class _RenderListTile extends RenderBox {
       // and subtitle are arranged in a column, tileHeight = column height plus
       // _minVerticalPadding on top and bottom.
       if (titleY < _minVerticalPadding ||
-          (subtitleY + subtitleSize.height + _minVerticalPadding) > tileHeight) {
-        tileHeight = titleSize.height + subtitleSize.height + 2.0 * _minVerticalPadding;
+          (subtitleY + subtitleSize.height + _minVerticalPadding) >
+              tileHeight) {
+        tileHeight =
+            titleSize.height + subtitleSize.height + 2.0 * _minVerticalPadding;
         titleY = _minVerticalPadding;
         subtitleY = titleSize.height + _minVerticalPadding;
       }
@@ -1432,27 +1056,29 @@ class _RenderListTile extends RenderBox {
     }
 
     switch (textDirection) {
-      case TextDirection.rtl: {
-        if (hasLeading)
-          _positionBox(leading, Offset(tileWidth - leadingSize.width, leadingY));
-        final double titleX = hasTrailing ? trailingSize.width + _horizontalTitleGap : 0.0;
-        _positionBox(title, Offset(titleX, titleY));
-        if (hasSubtitle)
-          _positionBox(subtitle, Offset(titleX, subtitleY));
-        if (hasTrailing)
-          _positionBox(trailing, Offset(0.0, trailingY));
-        break;
-      }
-      case TextDirection.ltr: {
-        if (hasLeading)
-          _positionBox(leading, Offset(0.0, leadingY));
-        _positionBox(title, Offset(titleStart, titleY));
-        if (hasSubtitle)
-          _positionBox(subtitle, Offset(titleStart, subtitleY));
-        if (hasTrailing)
-          _positionBox(trailing, Offset(tileWidth - trailingSize.width, trailingY));
-        break;
-      }
+      case TextDirection.rtl:
+        {
+          if (hasLeading)
+            _positionBox(
+                leading, Offset(tileWidth - leadingSize.width, leadingY));
+          final double titleX =
+              hasTrailing ? trailingSize.width + _horizontalTitleGap : 0.0;
+          _positionBox(title, Offset(titleX, titleY));
+          if (hasSubtitle) _positionBox(subtitle, Offset(titleX, subtitleY));
+          if (hasTrailing) _positionBox(trailing, Offset(0.0, trailingY));
+          break;
+        }
+      case TextDirection.ltr:
+        {
+          if (hasLeading) _positionBox(leading, Offset(0.0, leadingY));
+          _positionBox(title, Offset(titleStart, titleY));
+          if (hasSubtitle)
+            _positionBox(subtitle, Offset(titleStart, subtitleY));
+          if (hasTrailing)
+            _positionBox(
+                trailing, Offset(tileWidth - trailingSize.width, trailingY));
+          break;
+        }
     }
 
     size = constraints.constrain(Size(tileWidth, tileHeight));
@@ -1468,6 +1094,7 @@ class _RenderListTile extends RenderBox {
         context.paintChild(child, parentData.offset + offset);
       }
     }
+
     doPaint(leading);
     doPaint(title);
     doPaint(subtitle);
@@ -1478,7 +1105,7 @@ class _RenderListTile extends RenderBox {
   bool hitTestSelf(Offset position) => true;
 
   @override
-  bool hitTestChildren(BoxHitTestResult result, { @required Offset position }) {
+  bool hitTestChildren(BoxHitTestResult result, {@required Offset position}) {
     assert(position != null);
     for (final RenderBox child in _children) {
       final BoxParentData parentData = child.parentData as BoxParentData;
@@ -1490,8 +1117,7 @@ class _RenderListTile extends RenderBox {
           return child.hitTest(result, position: transformed);
         },
       );
-      if (isHit)
-        return true;
+      if (isHit) return true;
     }
     return false;
   }
