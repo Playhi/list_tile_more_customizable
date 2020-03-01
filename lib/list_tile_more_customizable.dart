@@ -5,7 +5,7 @@ library list_tile_more_customizable;
 // found in the LICENSE_RAW_FLUTTER file.
 
 // This file has been modified based on The Flutter Authors' version,
-// which can be found in ****,
+// which can be found in https://github.com/Playhi/list_tile_more_customizable/raw/8b76fdd7d0fc55c211a572b5177858c9d6ef07a1/lib/list_tile_more_customizable.dart,
 // which has been used as the initial version of this file.
 
 // Copyright 2020 The List Tile More Customizable Authors. All rights reserved.
