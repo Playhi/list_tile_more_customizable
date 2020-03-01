@@ -1,0 +1,17 @@
+name: Auto publish to pub.dev
+
+on:
+  push:
+    branches:
+    - release/*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@v1.1.1
+    - run: flutter pub get
+    - run: flutter pub publish
