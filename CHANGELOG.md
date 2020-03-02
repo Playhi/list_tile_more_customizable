@@ -1,3 +1,8 @@
+## [1.0.1] - 2020-03-02
+
+* Fixed hot reload perform abnormally when change horizontalTitleGap problem.
+
+
 ## [1.0.0] - 2020-03-01
 
 * Add TapDownDetails to onLongPress.
