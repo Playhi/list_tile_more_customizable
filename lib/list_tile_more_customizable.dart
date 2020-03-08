@@ -19,8 +19,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
-// The horizontal gap between the titles and the leading/trailing widgets
+// The default horizontal gap between the titles and the leading/trailing widgets
 const double _defaultHorizontalTitleGap = 16.0;
+// The default minimum padding on the top and bottom of the title and subtitle widgets.
+const double _defaultMinVerticalPadding = 4.0;
 
 /// Defines the title font used for [ListTileMoreCustomizable] descendants of a [ListTileMoreCustomizableTheme].
 ///
@@ -207,6 +209,7 @@ class ListTileMoreCustomizable extends StatefulWidget {
     this.onLongPress,
     this.selected = false,
     this.horizontalTitleGap = _defaultHorizontalTitleGap,
+    this.minVerticalPadding = _defaultMinVerticalPadding,
   })  : assert(isThreeLine != null),
         assert(enabled != null),
         assert(selected != null),
@@ -293,7 +296,11 @@ class ListTileMoreCustomizable extends StatefulWidget {
   /// can be overridden with a [ListTileMoreCustomizableTheme].
   final bool selected;
 
+  /// The horizontal gap between the titles and the leading/trailing widgets.
   final double horizontalTitleGap;
+
+  /// The minimum padding on the top and bottom of the title and subtitle widgets.
+  final double minVerticalPadding;
 
   /// Add a one pixel border in between each tile. If color isn't specified the
   /// [ThemeData.dividerColor] of the context's [Theme] is used.
@@ -495,6 +502,7 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
             titleBaselineType: titleStyle.textBaseline,
             subtitleBaselineType: subtitleStyle?.textBaseline,
             horizontalTitleGap: widget.horizontalTitleGap,
+            minVerticalPadding: widget.minVerticalPadding,
           ),
         ),
       ),
@@ -534,6 +542,7 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
     @required this.textDirection,
     @required this.titleBaselineType,
     @required this.horizontalTitleGap,
+    @required this.minVerticalPadding,
     this.subtitleBaselineType,
   })  : assert(isThreeLine != null),
         assert(isDense != null),
@@ -551,6 +560,7 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
   final TextBaseline titleBaselineType;
   final TextBaseline subtitleBaselineType;
   final double horizontalTitleGap;
+  final double minVerticalPadding;
 
   @override
   _ListTileMoreCustomizableElement createElement() =>
@@ -565,6 +575,7 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
       titleBaselineType: titleBaselineType,
       subtitleBaselineType: subtitleBaselineType,
       horizontalTitleGap: horizontalTitleGap,
+      minVerticalPadding: minVerticalPadding,
     );
   }
 
@@ -708,23 +719,23 @@ class _RenderListTileMoreCustomizable extends RenderBox {
     @required TextDirection textDirection,
     @required TextBaseline titleBaselineType,
     @required double horizontalTitleGap,
+    @required double minVerticalPadding,
     TextBaseline subtitleBaselineType,
   })  : assert(isDense != null),
         assert(isThreeLine != null),
         assert(textDirection != null),
         assert(titleBaselineType != null),
         assert(horizontalTitleGap != null),
+        assert(minVerticalPadding != null),
         _isDense = isDense,
         _isThreeLine = isThreeLine,
         _textDirection = textDirection,
         _titleBaselineType = titleBaselineType,
         _horizontalTitleGap = horizontalTitleGap,
+        _minVerticalPadding = minVerticalPadding,
         _subtitleBaselineType = subtitleBaselineType;
 
   static const double _minLeadingWidth = 40.0;
-
-  // The minimum padding on the top and bottom of the title and subtitle widgets.
-  static const double _minVerticalPadding = 4.0;
 
   final Map<_ListTileMoreCustomizableSlot, RenderBox> slotToChild =
       <_ListTileMoreCustomizableSlot, RenderBox>{};
@@ -845,6 +856,16 @@ class _RenderListTileMoreCustomizable extends RenderBox {
     assert(value != null);
     if (_horizontalTitleGap == value) return;
     _horizontalTitleGap = value;
+    markNeedsLayout();
+  }
+
+  double get minVerticalPadding => _minVerticalPadding;
+  double _minVerticalPadding;
+
+  set minVerticalPadding(double value) {
+    assert(value != null);
+    if (_minVerticalPadding == value) return;
+    _minVerticalPadding = value;
     markNeedsLayout();
   }
 

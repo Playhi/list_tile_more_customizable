@@ -1,3 +1,8 @@
+## [1.1.0] - developing
+
+* MinVerticalPadding becomes customizable.
+
+
 ## [1.0.1] - 2020-03-02
 
 * Fixed hot reload perform abnormally when change horizontalTitleGap problem.
