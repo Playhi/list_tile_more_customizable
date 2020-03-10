@@ -19,14 +19,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
-// The default horizontal gap between the titles and the leading/trailing widgets.
-const double _defaultHorizontalTitleGap = 16.0;
+class ListTileMoreCustomizableDefaultValue {
+  // The default horizontal gap between the titles and the leading/trailing widgets.
+  static const double horizontalTitleGap = 16.0;
 
-// The default minimum padding on the top and bottom of the title and subtitle widgets.
-const double _defaultMinVerticalPadding = 4.0;
+  // The default minimum padding on the top and bottom of the title and subtitle widgets.
+  static const double minVerticalPadding = 4.0;
 
-// The default minimum leading width.
-const double _defaultMinLeadingWidth = 40.0;
+  // The default minimum leading width.
+  static const double minLeadingWidth = 40.0;
+}
 
 /// Defines the title font used for [ListTileMoreCustomizable] descendants of a [ListTileMoreCustomizableTheme].
 ///
@@ -212,13 +214,19 @@ class ListTileMoreCustomizable extends StatefulWidget {
     this.onTap,
     this.onLongPress,
     this.selected = false,
-    this.horizontalTitleGap = _defaultHorizontalTitleGap,
-    this.minVerticalPadding = _defaultMinVerticalPadding,
-    this.minLeadingWidth = _defaultMinLeadingWidth,
+    this.horizontalTitleGap =
+        ListTileMoreCustomizableDefaultValue.horizontalTitleGap,
+    this.minVerticalPadding =
+        ListTileMoreCustomizableDefaultValue.minVerticalPadding,
+    this.minLeadingWidth =
+        ListTileMoreCustomizableDefaultValue.minLeadingWidth,
   })  : assert(isThreeLine != null),
         assert(enabled != null),
         assert(selected != null),
         assert(!isThreeLine || subtitle != null),
+        assert(horizontalTitleGap != null),
+        assert(minVerticalPadding != null),
+        assert(minLeadingWidth != null),
         super(key: key);
 
   /// A widget to display before the title.
@@ -558,6 +566,9 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
         assert(isDense != null),
         assert(textDirection != null),
         assert(titleBaselineType != null),
+        assert(horizontalTitleGap != null),
+        assert(minVerticalPadding != null),
+        assert(minLeadingWidth != null),
         super(key: key);
 
   final Widget leading;
@@ -740,6 +751,7 @@ class _RenderListTileMoreCustomizable extends RenderBox {
         assert(titleBaselineType != null),
         assert(horizontalTitleGap != null),
         assert(minVerticalPadding != null),
+        assert(minLeadingWidth != null),
         _isDense = isDense,
         _isThreeLine = isThreeLine,
         _textDirection = textDirection,

@@ -1,3 +1,8 @@
+## [1.2.0] - developing
+
+* Export default value of horizontalTitleGap, minVerticalPadding and minLeadingWidth.
+
+
 ## [1.1.0] - 2020-03-10
 
 * MinVerticalPadding and MinLeadingWidth becomes customizable.
