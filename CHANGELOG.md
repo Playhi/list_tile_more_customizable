@@ -1,6 +1,6 @@
 ## [1.1.0] - developing
 
-* MinVerticalPadding becomes customizable.
+* MinVerticalPadding and MinLeadingWidth becomes customizable.
 
 
 ## [1.0.1] - 2020-03-02

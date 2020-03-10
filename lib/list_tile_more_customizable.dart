@@ -19,10 +19,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
-// The default horizontal gap between the titles and the leading/trailing widgets
+// The default horizontal gap between the titles and the leading/trailing widgets.
 const double _defaultHorizontalTitleGap = 16.0;
+
 // The default minimum padding on the top and bottom of the title and subtitle widgets.
 const double _defaultMinVerticalPadding = 4.0;
+
+// The default minimum leading width.
+const double _defaultMinLeadingWidth = 40.0;
 
 /// Defines the title font used for [ListTileMoreCustomizable] descendants of a [ListTileMoreCustomizableTheme].
 ///
@@ -210,6 +214,7 @@ class ListTileMoreCustomizable extends StatefulWidget {
     this.selected = false,
     this.horizontalTitleGap = _defaultHorizontalTitleGap,
     this.minVerticalPadding = _defaultMinVerticalPadding,
+    this.minLeadingWidth = _defaultMinLeadingWidth,
   })  : assert(isThreeLine != null),
         assert(enabled != null),
         assert(selected != null),
@@ -301,6 +306,9 @@ class ListTileMoreCustomizable extends StatefulWidget {
 
   /// The minimum padding on the top and bottom of the title and subtitle widgets.
   final double minVerticalPadding;
+
+  /// The default minimum leading width.
+  final double minLeadingWidth;
 
   /// Add a one pixel border in between each tile. If color isn't specified the
   /// [ThemeData.dividerColor] of the context's [Theme] is used.
@@ -503,6 +511,7 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
             subtitleBaselineType: subtitleStyle?.textBaseline,
             horizontalTitleGap: widget.horizontalTitleGap,
             minVerticalPadding: widget.minVerticalPadding,
+            minLeadingWidth: widget.minLeadingWidth,
           ),
         ),
       ),
@@ -543,6 +552,7 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
     @required this.titleBaselineType,
     @required this.horizontalTitleGap,
     @required this.minVerticalPadding,
+    @required this.minLeadingWidth,
     this.subtitleBaselineType,
   })  : assert(isThreeLine != null),
         assert(isDense != null),
@@ -561,6 +571,7 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
   final TextBaseline subtitleBaselineType;
   final double horizontalTitleGap;
   final double minVerticalPadding;
+  final double minLeadingWidth;
 
   @override
   _ListTileMoreCustomizableElement createElement() =>
@@ -576,6 +587,7 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
       subtitleBaselineType: subtitleBaselineType,
       horizontalTitleGap: horizontalTitleGap,
       minVerticalPadding: minVerticalPadding,
+      minLeadingWidth: minLeadingWidth,
     );
   }
 
@@ -720,6 +732,7 @@ class _RenderListTileMoreCustomizable extends RenderBox {
     @required TextBaseline titleBaselineType,
     @required double horizontalTitleGap,
     @required double minVerticalPadding,
+    @required double minLeadingWidth,
     TextBaseline subtitleBaselineType,
   })  : assert(isDense != null),
         assert(isThreeLine != null),
@@ -733,9 +746,8 @@ class _RenderListTileMoreCustomizable extends RenderBox {
         _titleBaselineType = titleBaselineType,
         _horizontalTitleGap = horizontalTitleGap,
         _minVerticalPadding = minVerticalPadding,
+        _minLeadingWidth = minLeadingWidth,
         _subtitleBaselineType = subtitleBaselineType;
-
-  static const double _minLeadingWidth = 40.0;
 
   final Map<_ListTileMoreCustomizableSlot, RenderBox> slotToChild =
       <_ListTileMoreCustomizableSlot, RenderBox>{};
@@ -866,6 +878,16 @@ class _RenderListTileMoreCustomizable extends RenderBox {
     assert(value != null);
     if (_minVerticalPadding == value) return;
     _minVerticalPadding = value;
+    markNeedsLayout();
+  }
+
+  double get minLeadingWidth => _minLeadingWidth;
+  double _minLeadingWidth;
+
+  set minLeadingWidth(double value) {
+    assert(value != null);
+    if (_minLeadingWidth == value) return;
+    _minLeadingWidth = value;
     markNeedsLayout();
   }
 
