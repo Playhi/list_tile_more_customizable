@@ -1,3 +1,8 @@
+## [1.2.1] - 2020-03-11
+
+* Export default value of contentPadding.
+
+
 ## [1.2.0] - 2020-03-11
 
 * Export default value of horizontalTitleGap, minVerticalPadding and minLeadingWidth.

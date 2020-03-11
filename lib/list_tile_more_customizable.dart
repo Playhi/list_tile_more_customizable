@@ -28,6 +28,10 @@ class ListTileMoreCustomizableDefaultValue {
 
   // The default minimum leading width.
   static const double minLeadingWidth = 40.0;
+
+  // The default content padding.
+  static const EdgeInsets contentPadding =
+      EdgeInsets.symmetric(horizontal: 16.0);
 }
 
 /// Defines the title font used for [ListTileMoreCustomizable] descendants of a [ListTileMoreCustomizableTheme].
@@ -218,8 +222,7 @@ class ListTileMoreCustomizable extends StatefulWidget {
         ListTileMoreCustomizableDefaultValue.horizontalTitleGap,
     this.minVerticalPadding =
         ListTileMoreCustomizableDefaultValue.minVerticalPadding,
-    this.minLeadingWidth =
-        ListTileMoreCustomizableDefaultValue.minLeadingWidth,
+    this.minLeadingWidth = ListTileMoreCustomizableDefaultValue.minLeadingWidth,
   })  : assert(isThreeLine != null),
         assert(enabled != null),
         assert(selected != null),
@@ -315,7 +318,7 @@ class ListTileMoreCustomizable extends StatefulWidget {
   /// The minimum padding on the top and bottom of the title and subtitle widgets.
   final double minVerticalPadding;
 
-  /// The default minimum leading width.
+  /// The minimum leading width.
   final double minLeadingWidth;
 
   /// Add a one pixel border in between each tile. If color isn't specified the
@@ -486,13 +489,11 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
       );
     }
 
-    const EdgeInsets _defaultContentPadding =
-        EdgeInsets.symmetric(horizontal: 16.0);
     final TextDirection textDirection = Directionality.of(context);
     final EdgeInsets resolvedContentPadding =
         widget.contentPadding?.resolve(textDirection) ??
             tileTheme?.contentPadding?.resolve(textDirection) ??
-            _defaultContentPadding;
+            ListTileMoreCustomizableDefaultValue.contentPadding;
 
     return InkWell(
       onTap: widget.enabled && widget.onTap != null ? toOnTap : null,
