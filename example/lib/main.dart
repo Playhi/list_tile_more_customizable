@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     details.globalPosition.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 1!"))
+                    PopupMenuItem(child: Text("onTap - 1!")),
                   ],
                 );
               },
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     details.globalPosition.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onLongPressed - 1!"))
+                    PopupMenuItem(child: Text("onLongPressed - 1!")),
                   ],
                 );
               },
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     details.globalPosition.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 2!"))
+                    PopupMenuItem(child: Text("onTap - 2!")),
                   ],
                 );
               },
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     details.globalPosition.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 3!"))
+                    PopupMenuItem(child: Text("onTap - 3!")),
                   ],
                 );
               },
@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     details.globalPosition.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 4!"))
+                    PopupMenuItem(child: Text("onTap - 4!")),
                   ],
                 );
               },
