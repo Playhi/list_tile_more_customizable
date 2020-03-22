@@ -612,7 +612,9 @@ class _ListTileMoreCustomizable extends RenderObjectWidget {
       ..textDirection = textDirection
       ..titleBaselineType = titleBaselineType
       ..subtitleBaselineType = subtitleBaselineType
-      ..horizontalTitleGap = horizontalTitleGap;
+      ..horizontalTitleGap = horizontalTitleGap
+      ..minLeadingWidth = minLeadingWidth
+      ..minVerticalPadding = minVerticalPadding;
   }
 }
 

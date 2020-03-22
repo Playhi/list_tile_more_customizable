@@ -1,3 +1,8 @@
+## [1.2.2] - 2020-03-22
+
+* Fixed hot reload perform abnormally problem when change minVerticalPadding or minLeadingWidth.
+
+
 ## [1.2.1] - 2020-03-11
 
 * Export default value of contentPadding.
