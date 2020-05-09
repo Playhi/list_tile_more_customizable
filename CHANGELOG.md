@@ -1,3 +1,17 @@
+## [1.3.0] - 2020-05-09
+
+* As Flutter 1.17 stable has been released, 
+we migrate the old textTheme term to the modern term. 
+If you use an old version of flutter, 
+we suggest you to upgrade your flutter. 
+If you cannot use flutter which version is greater than `1.13.8` now, 
+version `1.2.2` of `list_tile_more_customizable` 
+can be used, and please don't upgrade the version 
+of `list_tile_more_customizable` to `1.3.0` 
+and newer.
+* Sync Flutter change [#213027d](https://github.com/flutter/flutter/commit/213027dd8213898daed6a0c90635da1ec4562b70#diff-53f33273ae4e7462729c5f4b7394428b).
+* Sync Flutter change [#2dc71a3](https://github.com/flutter/flutter/commit/2dc71a343f087da118356cabb23509e762166c23#diff-53f33273ae4e7462729c5f4b7394428b).
+
 ## [1.2.2] - 2020-03-22
 
 * Fixed hot reload perform abnormally problem when change minVerticalPadding or minLeadingWidth.

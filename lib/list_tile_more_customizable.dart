@@ -415,17 +415,14 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
     if (tileTheme != null) {
       switch (tileTheme.style) {
         case ListTileMoreCustomizableStyle.drawer:
-          // [body2] need be change to [bodyText1] when flutter 1.13.8+ becomes stable.
-          style = theme.textTheme.body2;
+          style = theme.textTheme.bodyText1;
           break;
         case ListTileMoreCustomizableStyle.list:
-          // [subhead] need be change to [subtitle1] when flutter 1.13.8+ becomes stable.
-          style = theme.textTheme.subhead;
+          style = theme.textTheme.subtitle1;
           break;
       }
     } else {
-      // [subhead] need be change to [subtitle1] when flutter 1.13.8+ becomes stable.
-      style = theme.textTheme.subhead;
+      style = theme.textTheme.subtitle1;
     }
     final Color color = _textColor(theme, tileTheme, style.color);
     return _isDenseLayout(tileTheme)
@@ -435,8 +432,7 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
 
   TextStyle _subtitleTextStyle(
       ThemeData theme, ListTileMoreCustomizableTheme tileTheme) {
-    // [body1] need be change to [bodyText2] when flutter 1.13.8+ becomes stable.
-    final TextStyle style = theme.textTheme.body1;
+    final TextStyle style = theme.textTheme.bodyText2;
     final Color color =
         _textColor(theme, tileTheme, theme.textTheme.caption.color);
     return _isDenseLayout(tileTheme)
@@ -647,6 +643,7 @@ class _ListTileMoreCustomizableElement extends RenderObjectElement {
     final _ListTileMoreCustomizableSlot slot = childToSlot[child];
     childToSlot.remove(child);
     slotToChild.remove(slot);
+    super.forgetChild(child);
   }
 
   void _mountChild(Widget widget, _ListTileMoreCustomizableSlot slot) {
@@ -1025,6 +1022,7 @@ class _RenderListTileMoreCustomizable extends RenderBox {
   // https://material.io/design/components/lists.html#specs
   @override
   void performLayout() {
+    final BoxConstraints constraints = this.constraints;
     final bool hasLeading = leading != null;
     final bool hasSubtitle = subtitle != null;
     final bool hasTrailing = trailing != null;
