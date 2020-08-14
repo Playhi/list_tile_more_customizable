@@ -1,3 +1,7 @@
+## [1.3.3] - 2020-08-14
+
+* Try to solve [list_tile_more_customizable: 1.3.2 breaks the flutter (1.17.4) app](https://github.com/Playhi/list_tile_more_customizable/issues/1).
+
 ## [1.3.2] - 2020-08-14
 
 * Some minor fix.
