@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     details.globalPosition.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 2!")),
+                    PopupMenuItem(child: Text("onLongPress - 2!")),
                   ],
                 );
               },
