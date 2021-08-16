@@ -1,3 +1,16 @@
+## [2.0.1] - 2021-08-16
+
+* Fix `lib/list_tile_more_customizable.dart is not formatted according to dartfmt`.
+
+## [2.0.0] - 2021-08-16
+
+* Opts into null safety.
+* With the efforts of the List Tile More Customizable Authors and the community, 
+now we can directly modify the horizontalTitleGap, 
+minVerticalPadding and minLeadingWidth in the ListTile, 
+so if you only use these three functions, 
+it is time to switch back to use the ListTile.
+
 ## [1.3.3] - 2020-08-14
 
 * Try to solve [list_tile_more_customizable: 1.3.2 breaks the flutter (1.17.4) app](https://github.com/Playhi/list_tile_more_customizable/issues/1).

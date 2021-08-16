@@ -4,6 +4,13 @@ A ListTile with more customizable details.
 
 ## Introduction
 
+___Important: 
+With the efforts of the List Tile More Customizable Authors and the flutter community, 
+now we can directly modify the horizontalTitleGap, 
+minVerticalPadding and minLeadingWidth in the ListTile, 
+so if you only use these three functions, 
+it is time to switch back to use the ListTile.___
+
 This project is a modified version of Flutter ListTile, 
 and provides more customizable functions, 
 with these functions, 

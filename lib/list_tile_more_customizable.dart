@@ -1269,6 +1269,7 @@ class _ListTileMoreCustomizableState extends State<ListTileMoreCustomizable> {
     widget.onLongPress!(tapDownDetails);
   }
 
+  // Records TapDownDetails when the onTapDown event fired.
   recordTapDownDetails(TapDownDetails d) {
     tapDownDetails = d;
   }
