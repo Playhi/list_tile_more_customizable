@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:list_tile_more_customizable/list_tile_more_customizable.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -14,12 +19,12 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -35,21 +40,21 @@ class _MyHomePageState extends State<MyHomePage> {
             // A [ListTileMoreCustomizable] with [onTap], [onLongPress],
             // [leading], [title], [subtitle], [trailing].
             ListTileMoreCustomizable(
-              leading: Icon(Icons.print),
-              title: Text("Title - 1"),
-              subtitle: Text("Subtitle - 1"),
-              trailing: Icon(Icons.account_balance),
+              leading: const Icon(Icons.print),
+              title: const Text("Title - 1"),
+              subtitle: const Text("Subtitle - 1"),
+              trailing: const Icon(Icons.account_balance),
               onTap: (details) {
                 showMenu(
                   context: context,
                   position: RelativeRect.fromLTRB(
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
+                    details.position.dx,
+                    details.position.dy,
+                    details.position.dx,
+                    details.position.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 1!")),
+                    const PopupMenuItem(child: Text("onTap - 1!")),
                   ],
                 );
               },
@@ -57,89 +62,89 @@ class _MyHomePageState extends State<MyHomePage> {
                 showMenu(
                   context: context,
                   position: RelativeRect.fromLTRB(
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
+                    details.position.dx,
+                    details.position.dy,
+                    details.position.dx,
+                    details.position.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onLongPressed - 1!")),
+                    const PopupMenuItem(child: Text("onLongPressed - 1!")),
                   ],
                 );
               },
             ),
-            Divider(),
+            const Divider(),
             // A [ListTileMoreCustomizable] with [onLongPress],
             // [leading], [title], [subtitle],
             // [trailing], [horizontalTitleGap].
             ListTileMoreCustomizable(
-              leading: Icon(Icons.priority_high),
-              title: Text("Title - 2"),
-              subtitle: Text("Subtitle - 2"),
-              trailing: Icon(Icons.palette),
+              leading: const Icon(Icons.priority_high),
+              title: const Text("Title - 2"),
+              subtitle: const Text("Subtitle - 2"),
+              trailing: const Icon(Icons.palette),
               onLongPress: (details) {
                 showMenu(
                   context: context,
                   position: RelativeRect.fromLTRB(
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
+                    details.position.dx,
+                    details.position.dy,
+                    details.position.dx,
+                    details.position.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onLongPress - 2!")),
+                    const PopupMenuItem(child: Text("onLongPress - 2!")),
                   ],
                 );
               },
               horizontalTitleGap: 0.0,
             ),
-            Divider(),
+            const Divider(),
             // A [ListTileMoreCustomizable] with [onTap],
             // [leading], [title],
             // [trailing], [horizontalTitleGap].
             ListTileMoreCustomizable(
-              leading: Icon(Icons.schedule),
-              title: Text("Title - 3"),
-              trailing: Icon(Icons.ac_unit),
+              leading: const Icon(Icons.schedule),
+              title: const Text("Title - 3"),
+              trailing: const Icon(Icons.ac_unit),
               onTap: (details) {
                 showMenu(
                   context: context,
                   position: RelativeRect.fromLTRB(
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
+                    details.position.dx,
+                    details.position.dy,
+                    details.position.dx,
+                    details.position.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 3!")),
+                    const PopupMenuItem(child: Text("onTap - 3!")),
                   ],
                 );
               },
               horizontalTitleGap: 0.0,
             ),
-            Divider(),
+            const Divider(),
             // A [ListTileMoreCustomizable] with [onTap],
             // [leading], [title], [trailing].
             ListTileMoreCustomizable(
-              leading: Icon(Icons.palette),
-              title: Text("Title - 4"),
-              trailing: Icon(Icons.title),
+              leading: const Icon(Icons.palette),
+              title: const Text("Title - 4"),
+              trailing: const Icon(Icons.title),
               onTap: (details) {
                 showMenu(
                   context: context,
                   position: RelativeRect.fromLTRB(
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
-                    details.globalPosition.dx,
-                    details.globalPosition.dy,
+                    details.position.dx,
+                    details.position.dy,
+                    details.position.dx,
+                    details.position.dy,
                   ),
                   items: <PopupMenuEntry<int>>[
-                    PopupMenuItem(child: Text("onTap - 4!")),
+                    const PopupMenuItem(child: Text("onTap - 4!")),
                   ],
                 );
               },
             ),
-            Divider(),
+            const Divider(),
           ],
         ),
       ),

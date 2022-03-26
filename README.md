@@ -15,7 +15,7 @@ This project is a modified version of Flutter ListTile,
 and provides more customizable functions, 
 with these functions, 
 you can set the horizontalTitleGap, minVerticalPadding, minLeadingWidth
-and get the TapDownDetails when onTap or onLongPress occurred.
+and get the PointerDownEvent when onTap or onLongPress occurred.
 
 ## Usage
 

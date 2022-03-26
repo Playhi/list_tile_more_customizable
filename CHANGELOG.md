@@ -1,3 +1,19 @@
+## [3.0.0] - 2022-03-26
+
+* Since all other functions have been merged in `ListTile`, 
+now this package is only used to get `TapDownDetails`. 
+* In this version, instead of rewriting `ListTile`, 
+we use a `Listener` to record the `PointerDownEvent` 
+for `onTap` and `onLongPress` to reach the target to 
+get the details similar to `TapDownDetails`.
+* Migrate from an older version. 
+First, we should migrate from `TapDownDetails` to `PointerDownEvent`, 
+for example, from `details.globalPosition.dx` to `details.position.dx`. 
+Secondly, we need to change `ListTileMoreCustomizable...` (except `ListTileMoreCustomizable`) 
+into `ListTile...`, such as `ListTileMoreCustomizableTheme`, `ListTileMoreCustomizableStyle`, etc. 
+In most cases, just delete the `MoreCustomizable`, 
+and then the code will work fine. 
+
 ## [2.0.1] - 2021-08-16
 
 * Fix `lib/list_tile_more_customizable.dart is not formatted according to dartfmt`.
